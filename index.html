@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Utkalika ❤️</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+    <canvas id="heartCanvas"></canvas>
+  <audio id="bg-music" loop>
+  <source src="assets/lover.mp3" type="audio/mpeg" />
+</audio>
+
+
+  <!-- Landing Page -->
+  <div class="page active" id="landing">
+    <h1>Is it someone's birthday? 🎂</h1>
+    <button onclick="nextPage('intro')">Click to Begin</button>
+  </div>
+
+  <!-- Intro Page -->
+  <div class="page" id="intro">
+    <h2>Happy Birthday, Utkalika! 💕</h2>
+    <p>From your little chaos — Rishab</p>
+    <button onclick="nextPage('slideshow')">See Our Moments</button>
+  </div>
+
+<!-- Slideshow Page -->
+<div class="page" id="slideshow">
+  <h2>📸 Our Moments</h2>
+  <div class="slideshow">
+    <img id="slide-img" />
+    <video id="slide-video" controls hidden></video>
+    <p id="slide-caption"></p>
+  </div>
+  <button onclick="nextPage('loveNotes')">Next Section</button>
+</div>
+
+
+  <!-- Love Notes Page -->
+  <div class="page" id="loveNotes">
+    <h2>💌 Love Notes</h2>
+    <div class="note">"Can I go where you go?" — your hand in mine feels like the bridge we’ll keep crossing forever.</div>
+    <div class="note">You turned grey skies into ‘Daylight’ — now everything glows the color of us.</div>
+    <div class="note">You’re the song I didn’t know I was humming all along.</div>
+    <button onclick="nextPage('letters')">Read Letters</button>
+  </div>
+
+<div class="page" id="letters">
+  <h2>📬 Personal Letters</h2>
+  <div class="letter-container">
+    <div class="envelope" onclick="openLetter('letter1')">
+      <img src="assets/envelope.png" class="envelope-icon" />
+      <div class="click-hint">Click to open 💌</div>
+    </div>
+    <div class="envelope" onclick="openLetter('letter2')">
+      <img src="assets/envelope.png" class="envelope-icon" />
+      <div class="click-hint">Click to open 💌</div>
+    </div>
+    <div class="envelope" onclick="openLetter('letter3')">
+      <img src="assets/envelope.png" class="envelope-icon" />
+      <div class="click-hint">Click to open 💌</div>
+    </div>
+  </div>
+
+  <!-- Pop-up Modals -->
+  <div class="letter-popup" id="letter1">
+    <div class="popup-content">
+      <span class="close" onclick="closeLetter('letter1')">&times;</span>
+      <p><strong>16th February, 2025</strong></p>
+        <p>
+          Lover Fest felt like a dream with you, but the most magical part was our moment — our own little 'Lover' moment.  
+          That tight hug, the warmth, the comfort — it didn’t feel like a first meeting; it felt like home.
+        </p>
+        <p>
+          Everything about you was just perfect — your kindness, your voice, your smile, your eyes — and then you showed up in my favorite color, stealing my heart effortlessly, like a lyric written just for me.
+        </p>
+        <p>
+          If time could pause, I’d choose that moment over and over again.  
+          Thank you so much, Ms. Beauty, for coming into my life!! 💖
+        </p>
+    </div>
+  </div>
+
+  <div class="letter-popup" id="letter2">
+    <div class="popup-content">
+      <span class="close" onclick="closeLetter('letter2')">&times;</span>
+      <p>To Utk, my little secret whispering magic,</p>
+        <p>
+          You walked into my life on a random February day,  
+          but since then, nothing’s felt random at all.
+        </p>
+        <p>
+          You’ve become my calm in chaos,  
+          the smile I search for in the noise,  
+          and the silence that feels full when you're near.
+        </p>
+        <p>
+          In your laughter, I’ve found music.  
+          In your voice, a sense of home.
+        </p>
+        <p>
+          Even our little fights… they carry warmth,  
+          because they end with us understanding each other even more.
+        </p>
+        <p>
+          You've seen me — the raw, messy, unfiltered me.  
+          And yet, you stayed.  
+          That means more to me than words can ever spell out.
+        </p>
+        <p>
+          With you, I’ve felt what it means to be alive.  
+          To be wanted.  
+          To be held — not just in arms, but in heart.
+        </p>
+        <p>
+          So here’s to you —  
+          The one who turned my ordinary into something quietly magical.
+        </p>
+        <p>Happy Birthday, Bebu ❣️</p>
+    </div>
+  </div>
+
+  <div class="letter-popup" id="letter3">
+    <div class="popup-content">
+      <span class="close" onclick="closeLetter('letter3')">&times;</span>
+      <p>
+          You’re chaotic, expressive, loving, annoying, sweet — and everything in between.  
+          You tease, you pout, you comfort, you demand.  
+          You ask for too many kisses and then complain when I give just one.
+        </p>
+        <p>
+          But most of all, you make me feel like I’m *wanted*.  
+          And that’s something rare.
+        </p>
+        <p>
+          From “MS Beauty” to “my safe place,”  
+          you’ve become this rhythm in my everyday life — the voice in my head that sounds like mischief and love.
+        </p>
+        <p>
+          We’re weird. We fight. We vibe.  
+          We forgive. We repeat.  
+          And that loop? Feels like home.
+        </p>
+        <p>
+          I won’t say future, forever, or always.  
+          I’ll just say — *right now*, you’ve made my world softer.  
+          And that’s enough to write a love song about 💛
+        </p>
+    </div>
+  </div>
+
+  <button onclick="nextPage('quiz')">Quiz Time</button>
+</div>
+
+
+
+  <!-- Quiz Page -->
+<div class="page" id="quiz">
+  <h2>💡 Quiz Time! 💡</h2>
+  <div id="quiz-box">
+    <div id="question-card">
+      <p id="question-text"></p>
+      <div id="options"></div>
+    </div>
+    <p id="feedback"></p>
+  </div>
+
+<div id="quiz-end" style="display:none;">
+  <h3>You scored <span id="final-score"></span>/5 💖</h3>
+  <p id="reward-message"></p>
+  <div id="reward-gift"></div> <!-- ✅ Added gift container -->
+  <button id="claimBtn" onclick="claimSurprise()">🎁 Click to Claim 🎉</button>
+<div id="confetti" class="confetti-container"></div>
+</div>
+
+  <!-- Digital Surprise Page -->
+<div class="page" id="surprise" style="display: none; position: relative; overflow: hidden;">
+  <div id="celebrate-text" class="fade-in-text">
+    Let’s celebrate your 23rd birthday with something meaningful this year 🎂
+  </div>
+
+  <video id="surprise-video" autoplay muted playsinline class="surprise-video">
+    <source src="assets/birthday_surprise.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <p style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #aaa; font-size: 14px;">
+    Made by Rishab 💌
+  </p>
+</div>
+
+
+
+  <!-- Final Goodbye Page -->
+  <div class="page" id="goodbye">
+    <h2>Thank You for Being You ✨</h2>
+    <p>Made by Rishab 💖</p>
+  </div>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
