@@ -1,3 +1,5 @@
+// ------------------------ SLIDESHOW LOGIC ------------------------
+
 let currentSlide = 0;
 let autoSlideTimer;
 
@@ -20,7 +22,6 @@ function showSlide(index) {
   const caption = document.getElementById("slide-caption");
   const slide = slides[index];
 
-  // Reset opacity for transition
   img.style.opacity = 0;
   video.style.opacity = 0;
 
@@ -36,8 +37,7 @@ function showSlide(index) {
       video.hidden = false;
       img.hidden = true;
       caption.textContent = slide.caption;
-
-      // Autoplay video smoothly
+      video.load();
       video.autoplay = true;
       video.muted = true;
       video.loop = false;
@@ -47,15 +47,16 @@ function showSlide(index) {
         video.style.opacity = 1;
       };
 
-      // Pause auto-slideshow during video
-      clearInterval(autoSlideTimer);
+      clearInterval(autoSlideTimer); // Pause for video
       video.onended = () => {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-        startAutoSlide(); // resume autoSlide
+        setTimeout(() => {
+          currentSlide = (currentSlide + 1) % slides.length;
+          showSlide(currentSlide);
+          startAutoSlide();
+        }, 500);
       };
     }
-  }, 200);
+  }, 100);
 }
 
 function startAutoSlide() {
@@ -63,37 +64,40 @@ function startAutoSlide() {
   autoSlideTimer = setInterval(() => {
     currentSlide = (currentSlide + 1) % slides.length;
     showSlide(currentSlide);
-  }, 3000); // 3 sec for photo
+  }, 3000); // 3s per image
 }
+
+// ------------------------ PAGE TRANSITION ------------------------
 
 function nextPage(id) {
   const pages = document.querySelectorAll(".page");
-  pages.forEach(p => p.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+  pages.forEach(p => {
+    p.classList.remove("active");
+    p.style.display = "none"; // hide all
+  });
 
-  // Start slideshow
+  const next = document.getElementById(id);
+  if (next) {
+    next.style.display = "block"; // show target
+    next.classList.add("active");
+  }
+
   if (id === "slideshow") {
     currentSlide = 0;
     showSlide(currentSlide);
     startAutoSlide();
   }
 
-  // Load quiz when needed
   if (id === "quiz") showQuestion();
 
-  // Play music on first interaction
   const audio = document.getElementById("bg-music");
   if (audio && audio.paused) {
-    audio.play().catch(e => {
-      console.warn("Autoplay failed:", e);
-    });
+    audio.play().catch(e => console.warn("Autoplay blocked", e));
   }
 }
 
+// ------------------------ QUIZ FUNCTIONALITY ------------------------
 
-
-
-// QUIZ FUNCTIONALITY
 const quizData = [
   {
     question: "What did I notice about you in the first sight when we met?",
@@ -121,7 +125,6 @@ const quizData = [
     answer: "🌧️ Mood"
   }
 ];
-
 
 let currentQuestion = 0;
 let score = 0;
@@ -175,12 +178,9 @@ function showQuizEnd() {
 
   const rewardMsg = document.getElementById("reward-message");
   const rewardGift = document.getElementById("reward-gift");
-
-  // Clear previous content
   rewardMsg.innerHTML = "";
   rewardGift.innerHTML = "";
 
-  // 🎁 Surprise gifts based on score
   if (score === 5) {
     rewardMsg.innerText = "Perfect score! You're my Memory Master 💖";
     rewardGift.innerHTML = "🎁 ✨ A forever ticket to all my cuddles ✨";
@@ -199,59 +199,60 @@ function showQuizEnd() {
   }
 }
 
-// SWIPE GESTURE SUPPORT
-let startX = 0;
+// ------------------------ CONFETTI + SURPRISE ------------------------
 
-const slideshowElement = document.getElementById("slideshow");
+function claimSurprise() {
+  const container = document.getElementById("confetti");
+  container.innerHTML = "";
 
-slideshowElement.addEventListener("touchstart", (e) => {
-  startX = e.touches[0].clientX;
-});
+  const emojis = ["💖", "🎉", "💫", "🥳", "🌸", "✨", "🩷"];
+  const count = 30;
 
-slideshowElement.addEventListener("touchend", (e) => {
-  const endX = e.changedTouches[0].clientX;
-  handleSwipe(endX - startX);
-});
+  for (let i = 0; i < count; i++) {
+    const span = document.createElement("span");
+    span.className = "emoji-burst";
+    span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
 
-slideshowElement.addEventListener("mousedown", (e) => {
-  startX = e.clientX;
-});
+    const x = Math.random() * window.innerWidth - 100;
+    const delay = Math.random() * 0.5;
 
-slideshowElement.addEventListener("mouseup", (e) => {
-  const endX = e.clientX;
-  handleSwipe(endX - startX);
-});
+    span.style.left = `${x}px`;
+    span.style.animationDelay = `${delay}s`;
 
-function handleSwipe(diff) {
-  if (Math.abs(diff) > 50) {
-    // Reset auto slide timer
-    clearInterval(autoSlideTimer);
-    if (diff < 0) {
-      // Swipe left → next
-      currentSlide = (currentSlide + 1) % slides.length;
-    } else {
-      // Swipe right → previous
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    }
-    showSlide(currentSlide);
-    startAutoSlide();
+    container.appendChild(span);
   }
+
+  document.getElementById("claimBtn").disabled = true;
+  document.getElementById("claimBtn").innerText = "🎊 Claimed!";
+
+  setTimeout(() => {
+    nextPage("surprise");
+    setTimeout(hideSurpriseText, 4000);
+  }, 2000);
 }
 
-function toggleLetter(id) {
-  const el = document.getElementById(id);
-  el.style.display = el.style.display === "block" ? "none" : "block";
+function hideSurpriseText() {
+  const text = document.getElementById("celebrate-text");
+  if (text) text.style.display = "none";
 }
+
+function replaySurprise() {
+  const video = document.getElementById("surprise-video");
+  video.currentTime = 0;
+  video.play();
+}
+
+// ------------------------ LETTER POPUPS ------------------------
 
 function openLetter(id) {
   document.getElementById(id).style.display = "block";
 }
-
 function closeLetter(id) {
   document.getElementById(id).style.display = "none";
 }
 
-// Heart Sparkle Particles 💖
+// ------------------------ HEART PARTICLES ------------------------
+
 const canvas = document.getElementById("heartCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -306,7 +307,7 @@ function animate() {
 }
 
 setInterval(() => {
-  for (let i = 0; i < 3; i++) createHeart(); // generates 3 hearts every 150ms
+  for (let i = 0; i < 3; i++) createHeart();
 }, 200);
 animate();
 
@@ -315,43 +316,61 @@ window.addEventListener("resize", () => {
   canvas.height = window.innerHeight;
 });
 
-if (document.getElementById("quiz")) {
-  showQuestion();
-}
+// ------------------------ TOUCH SWIPE FOR SLIDESHOW ------------------------
 
-function hideSurpriseText() {
-  const text = document.getElementById("celebrate-text");
-  if (text) text.style.display = "none";
-}
+const slideshowElement = document.getElementById("slideshow");
+let startX = 0;
 
+slideshowElement.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+slideshowElement.addEventListener("touchend", (e) => {
+  const endX = e.changedTouches[0].clientX;
+  handleSwipe(endX - startX);
+});
+slideshowElement.addEventListener("mousedown", (e) => {
+  startX = e.clientX;
+});
+slideshowElement.addEventListener("mouseup", (e) => {
+  const endX = e.clientX;
+  handleSwipe(endX - startX);
+});
 
-function claimSurprise() {
-  const container = document.getElementById("confetti");
-  container.innerHTML = ""; // Clear previous
-
-  const emojis = ["💖", "🎉", "💫", "🥳", "🌸", "✨", "🩷"];
-  const count = 30;
-
-  for (let i = 0; i < count; i++) {
-    const span = document.createElement("span");
-    span.className = "emoji-burst";
-    span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-
-    const x = Math.random() * window.innerWidth - 100;
-    const delay = Math.random() * 0.5;
-
-    span.style.left = `${x}px`;
-    span.style.animationDelay = `${delay}s`;
-
-    container.appendChild(span);
+function handleSwipe(diff) {
+  if (Math.abs(diff) > 50) {
+    clearInterval(autoSlideTimer);
+    currentSlide = diff < 0
+      ? (currentSlide + 1) % slides.length
+      : (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+    startAutoSlide();
   }
-
-  document.getElementById("claimBtn").disabled = true;
-  document.getElementById("claimBtn").innerText = "🎊 Claimed!";
-
-  setTimeout(() => {
-    nextPage('surprise');
-    setTimeout(hideSurpriseText, 4000); // hides animated text after 4s
-  }, 2000);
 }
 
+function openImageModal(src) {
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+  modalImg.src = src;
+  modal.style.display = "block";
+}
+
+function closeImageModal() {
+  document.getElementById("imageModal").style.display = "none";
+}
+
+const surpriseVideo = document.getElementById("surprise-video");
+const bgMusic = document.getElementById("bg-music");
+
+// Optional: Set initial volume
+bgMusic.volume = 0.5;
+
+// Listen for volume/mute changes
+surpriseVideo.addEventListener("volumechange", () => {
+  if (!surpriseVideo.muted && surpriseVideo.volume > 0) {
+    // Lower bg music when video is unmuted
+    bgMusic.volume = 0.15;
+  } else {
+    // Restore bg music volume when video is muted again
+    bgMusic.volume = 0.5;
+  }
+});
