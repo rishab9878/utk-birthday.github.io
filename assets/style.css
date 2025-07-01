@@ -1,6 +1,18 @@
+/* Apply 'Satisfy' font to all headings */
+@import url('https://fonts.googleapis.com/css2?family=Rochester&display=swap');
+
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Satisfy', cursive;
+font-weight: bold;
+letter-spacing: 2px;
+font-size: 40px;
+color: #ff4b91; /* Optional: gives a sweet pink tone */
+}
+
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Georgia', serif;
   background: linear-gradient(to bottom right, #fce4ec, #f8bbd0);
   color: #5a294c;
   overflow-x: hidden;
@@ -126,7 +138,12 @@ button:hover {
 }
 
 .popup-content {
-  background: #fff0f6;
+  font-family: 'Satisfy', cursive;
+  font-weight: bold;
+  letter-spacing: 2px;
+  background: url('letter-bg.jpg'); 
+  background-size: cover;
+  background-position: center;
   color: #3d3d3d;
   margin: 8% auto;
   padding: 20px 24px;
@@ -136,7 +153,7 @@ button:hover {
   box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
   animation: popUp 0.5s ease;
   position: relative;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
 }
 
@@ -653,4 +670,84 @@ transition: background 0.3s ease;
 .replay-btn:hover,
 #nextPageBtn:hover {
 background-color: #f06a9b;
+}
+/* Love Notes - Quote Card Style */
+.quote-card {
+background: #fff;
+border-left: 6px solid #ff9eb3;
+padding: 16px 20px;
+margin: 20px auto;
+max-width: 700px;
+border-radius: 12px;
+font-family: 'Georgia', serif;
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+animation: fadeInUp 0.8s ease;
+transition: transform 0.3s ease;
+}
+
+.quote-card:hover {
+transform: translateY(-4px);
+}
+
+.quote-card .quote {
+font-style: italic;
+font-size: 20px;
+color: #333;
+margin-bottom: 8px;
+text-align: left;
+}
+
+.quote-card .author {
+display: block;
+font-size: 16px;
+color: #555;
+text-align: right;
+}
+
+/* Themed Borders */
+.quote-card.pink {
+border-left-color: #ff9eb3;
+}
+.quote-card.blue {
+border-left-color: #a5d8ff;
+}
+.quote-card.violet {
+border-left-color: #c7a0ff;
+}
+
+/* Optional: Smooth entry animation */
+@keyframes fadeInUp {
+from {
+opacity: 0;
+transform: translateY(20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* Quote box for goodbye page */
+.quote-box {
+background: #fff0f6;
+border-radius: 16px;
+box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+padding: 24px 32px;
+margin: 30px auto;
+max-width: 600px;
+text-align: center;
+animation: fadeIn 1s ease;
+}
+
+.quote-box .quote {
+font-family: 'Rochester', cursive;
+font-size: 28px;
+color: 	#52316b;
+margin-bottom: 10px;
+}
+
+.quote-box .author {
+font-family: 'Rochester', cursive;
+font-size: 20px;
+color: #db7ca5;
 }
