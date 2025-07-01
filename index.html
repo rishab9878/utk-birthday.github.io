@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+  
 <head>
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Happy Birthday Utkalika ❤️</title>
@@ -39,13 +41,13 @@
 
 
   <!-- Love Notes Page -->
-  <div class="page" id="loveNotes">
-    <h2>💌 Love Notes</h2>
-    <div class="note">"Can I go where you go?" — your hand in mine feels like the bridge we’ll keep crossing forever.</div>
-    <div class="note">You turned grey skies into ‘Daylight’ — now everything glows the color of us.</div>
-    <div class="note">You’re the song I didn’t know I was humming all along.</div>
-    <button onclick="nextPage('letters')">Read Letters</button>
-  </div>
+<div class="page" id="loveNotes"> 
+  <h2>💌 Love Notes</h2> 
+  <div class="quote-card pink"><p class="quote">"Can I go where you go?"</p> <span class="author">— Lover</span> </div> 
+  <div class="quote-card blue"> <p class="quote">You turned grey skies into ‘Daylight’</p> <span class="author">— Daylight</span> 
+  </div> <div class="quote-card violet"> <p class="quote">You’re the song I didn’t know I was humming all along.</p> <span class="author">— Rishab</span> </div>
+  <button onclick="nextPage('letters')">Read Letters</button>
+</div>
 
 <div class="page" id="letters">
   <h2>📬 Personal Letters</h2>
@@ -221,7 +223,10 @@
   <!-- Final Goodbye Page -->
   <div class="page" id="goodbye">
     <h2>Thank You for Being You ✨</h2>
-    <p>Made by Rishab 💖</p>
+    <div class="quote-box"> <p class="quote">"long live the memories we made"</p> <p class="author">— Taylor Swift</p> </div>
+    <br>
+    <br>  
+    <p>Made by Rishab(Taylor's Version)</p>
   </div>
 
   <script src="assets/script.js"></script>
@@ -230,5 +235,6 @@
   <span class="close-modal" onclick="closeImageModal()">&times;</span>
   <img class="modal-content" id="modalImage">
 </div>
+
 </body>
 </html>
