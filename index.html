@@ -167,31 +167,56 @@
     <p id="feedback"></p>
   </div>
 
-<div id="quiz-end" style="display:none;">
+ <div id="quiz-end" style="display:none;">
   <h3>You scored <span id="final-score"></span>/5 💖</h3>
   <p id="reward-message"></p>
   <div id="reward-gift"></div> <!-- ✅ Added gift container -->
   <button id="claimBtn" onclick="claimSurprise()">🎁 Click to Claim 🎉</button>
 <div id="confetti" class="confetti-container"></div>
+ </div>
 </div>
 
-  <!-- Digital Surprise Page -->
-<div class="page" id="surprise" style="display: none; position: relative; overflow: hidden;">
-  <div id="celebrate-text" class="fade-in-text">
-    Let’s celebrate your 23rd birthday with something meaningful this year 🎂
+<!-- Digital Surprise Page -->
+<div class="page" id="surprise" style="display: none;">
+  <div class="surprise-layout">
+    <div class="surprise-side">
+      <img src="assets/photo1.jpg" class="surprise-img landscape" onclick="openImageModal(this.src)" />
+      <img src="assets/photo2.jpg" class="surprise-img landscape" onclick="openImageModal(this.src)" />
+      <img src="assets/photo5.jpg" class="surprise-img landscape" onclick="openImageModal(this.src)" />
+    </div>
+
+    <div class="surprise-center">
+      <video id="surprise-video" autoplay muted playsinline controls class="surprise-video">
+        <source src="assets/birthday_surprise.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <button id="replay-button" onclick="replaySurprise()" class="replay-btn">🔁 Replay Video</button>
+    </div>
+    <!-- New Button to go to Appreciation Page -->
+<button id="nextToAppreciation" onclick="nextPage('appreciation')" class="next-btn">
+  🎈 See What’s Next
+</button>
+
+    <div class="surprise-side">
+      <img src="assets/photo3.jpg" class="surprise-img portrait" onclick="openImageModal(this.src)" />
+      <img src="assets/photo4.jpg" class="surprise-img landscape" onclick="openImageModal(this.src)" />
+      <img src="assets/photo6.jpg" class="surprise-img landscape" onclick="openImageModal(this.src)" />
+    </div>
   </div>
-
-  <video id="surprise-video" autoplay muted playsinline class="surprise-video">
-    <source src="assets/birthday_surprise.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
-  <p style="position: absolute; bottom: 10px; width: 100%; text-align: center; color: #aaa; font-size: 14px;">
-    Made by Rishab 💌
-  </p>
 </div>
 
-
+<!-- Appreciation Page --> 
+<div class="page" id="appreciation"> <div class="appreciation-message"> 
+    <h2>🎁 A Thoughtful Gift 🎁</h2> 
+    <p> Thought of making your day special this year with wonderful smiles from these cute little souls. </p> 
+    <p> Every blessing matters... </p> 
+    <p> Hope you like this small token of love from me with the help of <strong>Homeless Care Foundation</strong>. </p> 
+    <p> Not everyone is so privileged like us, so why not make your special day their special day too ♥ </p> 
+    <p> Wishing you a very <strong>Happiest Birthday</strong> from me and these cute brothers and sisters. 🎉 </p> 
+    <h3>#Happiest23birthdayUtk</h3>
+<button onclick="nextPage('goodbye')">💖 Continue</button>
+</div> 
+</div>
 
   <!-- Final Goodbye Page -->
   <div class="page" id="goodbye">
@@ -200,5 +225,10 @@
   </div>
 
   <script src="assets/script.js"></script>
+<!-- Image Modal Popup -->
+<div id="imageModal" class="image-modal">
+  <span class="close-modal" onclick="closeImageModal()">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
 </body>
 </html>
